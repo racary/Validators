@@ -17,6 +17,17 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "min-max-validator": [
+        "dist/min-max-validator"
+      ],
+      "min-max-validator/*": [
+        "dist/min-max-validator/*"
+      ],
+      "@angular": [
+        "./node_modules/@angular/*"
+      ]
+    }
   }
 }
