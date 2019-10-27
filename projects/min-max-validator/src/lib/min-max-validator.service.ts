@@ -9,13 +9,13 @@ import { Directive, Input } from '@angular/core';
   ]
 })
 export class MinMaxValidator implements Validator {
-  @Input('minMaxValidator') public minMaxLength: number[];
+  @Input('minMaxValidator') public range: number[];
   @Input('msg') public errorMessage: string;
 
   validate(control: FormControl): ValidationErrors {
-    this.minMaxLength = this.minMaxLength ? this.minMaxLength : [0, 100];
-    this.errorMessage = this.errorMessage ? this.errorMessage : this.buildErrorMessage(this.minMaxLength);
-    return MinMaxValidator.validateInputLength(control, this.minMaxLength, this.errorMessage);
+    this.range = this.range ? this.range : [1, 100];
+    this.errorMessage = this.errorMessage ? this.errorMessage : this.buildErrorMessage(this.range);
+    return MinMaxValidator.validateInputLength(control, this.range, this.errorMessage);
   }
 
   buildErrorMessage(minMaxLength: number[]): string {
@@ -29,12 +29,13 @@ export class MinMaxValidator implements Validator {
   }
 
   static validateInputLength(control: FormControl, lengthRange: number[], msg: string): ValidationErrors {
-    if (!control.value || control.value === null) {
+    if (!control.value || control.value === null || control.value === '') {
       return { error: 'Field is required.' };
     }
 
     let inputValue: string;
-    inputValue = (control.value instanceof Number) ? control.value.toString() : control.value;
+    inputValue = (typeof control.value === 'number') ? control.value.toString() : control.value;
+
     if (lengthRange && lengthRange.length > 0) {
       if (lengthRange.length === 1) {
         if (inputValue.length > lengthRange[0]) {
