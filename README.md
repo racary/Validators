@@ -1,14 +1,12 @@
 # CustomValidator
+The purpose of this project is to create a custom Min/Max length form validator for angular template forms. The validator accepts two optional input parameters.
+  1. [minMaxValidator] - array that can contain 1 or 2 elements
+    a. If 1 element this represents the maximum number that the input field can be.
+    b. If 2 elements the first represents the minumum number, the second represents the maximum number.
+  2. [msg] - custom error message to display
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.4.
-
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## To use locally
+Run `packager` to create a package in the `dist/` folder. Go into the `dist/` directory and run `npm pack` to create the `
 
 ## Build
 
