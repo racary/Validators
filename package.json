@@ -7,7 +7,6 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
     "packager": "ng-packagr -p ./projects/min-max-validator/ng-package.json"
   },
   "private": true,

@@ -9,44 +9,37 @@ import { Directive, Input } from '@angular/core';
   ]
 })
 export class MinMaxValidator implements Validator {
-  @Input('minMaxValidator') range: number[];
+  @Input() minValue: number;
+  @Input() maxValue: number;
   @Input('msg') msg: string;
   builtMessage: string;
 
-  static validateInputLength(control: FormControl, lengthRange: number[], msg: string): ValidationErrors {
+  static validateInputLength(control: FormControl, maxValue: number, minValue: number, msg: string): ValidationErrors {
     if (!control.value || control.value === null || control.value === '') {
-      return { error: 'Field is required.' };
+      return { minMaxError: 'Field is required.' };
     }
 
     let inputValue: number;
     inputValue = (typeof control.value === 'number') ? control.value : +control.value;
 
-    if (lengthRange && lengthRange.length > 0) {
-      if (lengthRange.length === 1) {
-        if (inputValue > lengthRange[0]) {
-          return { error: msg };
-        }
-      } else if (lengthRange.length === 2) {
-        if (inputValue < lengthRange[0] || inputValue > lengthRange[1]) {
-          return { error: msg };
-        }
+    if (minValue && maxValue) {
+      if (inputValue < minValue || inputValue > maxValue) {
+      return {minMaxError: msg};
       }
+    } else if (!maxValue && minValue && inputValue < minValue) {
+      return {minMaxError: msg};
+    } else if (!minValue && maxValue && inputValue > maxValue) {
+      return {minMaxError: msg};
     }
   }
 
   validate(control: FormControl): ValidationErrors {
-    const rng = this.range ? this.range : [1, 100];
-    const errorMsg = this.msg ? this.msg : this.buildErrorMessage(rng);
-    return MinMaxValidator.validateInputLength(control, rng, errorMsg);
+    const errorMsg = this.msg ? this.msg : this.buildErrorMessage();
+    return MinMaxValidator.validateInputLength(control, this.maxValue, this.minValue, errorMsg);
   }
 
-  buildErrorMessage(minMaxLength: number[]): string {
-    let msg;
-    if (minMaxLength.length === 1) {
-      msg = `Value must be between 0 and ${minMaxLength[0]}.`;
-    } else {
-      msg = `Value must be between ${minMaxLength[0]} and ${minMaxLength[1]}.`;
-    }
-    return msg;
+  buildErrorMessage(): string {
+    return this.minValue ?  `Value must be between ${this.minValue} and ${this.maxValue}.` :
+                            `Value cannot be greater than ${this.maxValue}.`;
   }
 }
