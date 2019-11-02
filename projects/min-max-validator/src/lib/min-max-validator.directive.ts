@@ -2,13 +2,12 @@ import { NG_VALIDATORS, Validator, ValidationErrors, FormControl } from '@angula
 import { Directive, Input } from '@angular/core';
 
 @Directive({
-  selector: '[libMinMaxValidator]',
-  // We add our directive to the list of existing validators
+  selector: '[minMaxValidator]',
   providers: [
-    { provide: NG_VALIDATORS, useExisting: MinMaxValidator, multi: true }
+    { provide: NG_VALIDATORS, useExisting: MinMaxValidatorDirective, multi: true }
   ]
 })
-export class MinMaxValidator implements Validator {
+export class MinMaxValidatorDirective implements Validator {
   @Input() minValue: number;
   @Input() maxValue: number;
   @Input('msg') msg: string;
@@ -35,7 +34,7 @@ export class MinMaxValidator implements Validator {
 
   validate(control: FormControl): ValidationErrors {
     const errorMsg = this.msg ? this.msg : this.buildErrorMessage();
-    return MinMaxValidator.validateInputLength(control, this.maxValue, this.minValue, errorMsg);
+    return MinMaxValidatorDirective.validateInputLength(control, this.maxValue, this.minValue, errorMsg);
   }
 
   buildErrorMessage(): string {

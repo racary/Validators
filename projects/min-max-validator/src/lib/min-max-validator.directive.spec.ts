@@ -1,21 +1,21 @@
-import { MinMaxValidator } from './min-max-validator.service';
+import { MinMaxValidatorDirective } from './min-max-validator.directive';
 import { FormControl } from '@angular/forms';
 
 describe('MinMaxValidator', () => {
-  const minMaxValidator: MinMaxValidator = new MinMaxValidator();
+  const minMaxValidator: MinMaxValidatorDirective = new MinMaxValidatorDirective();
 
   describe('validate()', () => {
     it('calls validateInputlength()', () => {
-      spyOn(MinMaxValidator, 'validateInputLength').and.stub();
+      spyOn(MinMaxValidatorDirective, 'validateInputLength').and.stub();
       minMaxValidator.msg = 'Value must be between 1 and 5';
 
       minMaxValidator.validate(null);
 
-      expect(MinMaxValidator.validateInputLength).toHaveBeenCalled();
+      expect(MinMaxValidatorDirective.validateInputLength).toHaveBeenCalled();
     });
     it('does not call buildErrorMessage() when msg input is provided', () => {
       spyOn(minMaxValidator, 'buildErrorMessage');
-      spyOn(MinMaxValidator, 'validateInputLength').and.stub();
+      spyOn(MinMaxValidatorDirective, 'validateInputLength').and.stub();
       minMaxValidator.msg = 'Error';
 
       minMaxValidator.validate(null);
@@ -23,7 +23,7 @@ describe('MinMaxValidator', () => {
     });
     it('does call buildErrorMessage() when msg input is not provided', () => {
       spyOn(minMaxValidator, 'buildErrorMessage');
-      spyOn(MinMaxValidator, 'validateInputLength').and.stub();
+      spyOn(MinMaxValidatorDirective, 'validateInputLength').and.stub();
       minMaxValidator.msg = undefined;
 
       minMaxValidator.validate(null);
@@ -50,37 +50,37 @@ describe('MinMaxValidator', () => {
       control = {} as FormControl;
     });
     it('returns error with error message when control.value is undefined', () => {
-      const errors = MinMaxValidator.validateInputLength(control, 1, 5, 'testing error');
+      const errors = MinMaxValidatorDirective.validateInputLength(control, 1, 5, 'testing error');
       expect(errors.minMaxError).toBe('Field is required.');
     });
     it('returns error with error message when control.value is null', () => {
       control.value = null;
-      const errors = MinMaxValidator.validateInputLength(control, 1, 5, 'testing error');
+      const errors = MinMaxValidatorDirective.validateInputLength(control, 1, 5, 'testing error');
       expect(errors.minMaxError).toBe('Field is required.');
     });
     it('returns error when control.value is ""', () => {
       control.value = '';
-      const errors = MinMaxValidator.validateInputLength(control, 1, 5, 'testing error');
+      const errors = MinMaxValidatorDirective.validateInputLength(control, 1, 5, 'testing error');
       expect(errors.minMaxError).toBe('Field is required.');
     });
     it('returns error when control.value is greater than max and only maxValue is provided', () => {
       control.value = '123';
-      const errors = MinMaxValidator.validateInputLength(control, 5, undefined, 'testing error');
+      const errors = MinMaxValidatorDirective.validateInputLength(control, 5, undefined, 'testing error');
       expect(errors.minMaxError).toBe('testing error');
     });
     it('returns error when control.value is greater than max and min/maxValue is provided', () => {
       control.value = '123';
-      const errors = MinMaxValidator.validateInputLength(control, 1, 5, 'testing error');
+      const errors = MinMaxValidatorDirective.validateInputLength(control, 1, 5, 'testing error');
       expect(errors.minMaxError).toBe('testing error');
     });
     it('returns error when control.value is less than min and only min is provided', () => {
       control.value = '1';
-      const errors = MinMaxValidator.validateInputLength(control, undefined, 5, 'testing error');
+      const errors = MinMaxValidatorDirective.validateInputLength(control, undefined, 5, 'testing error');
       expect(errors.minMaxError).toBe('testing error');
     });
     it('returns error when control.value is less than min and min/maxValue is provided', () => {
       control.value = '1';
-      const errors = MinMaxValidator.validateInputLength(control, 2, 5, 'testing error');
+      const errors = MinMaxValidatorDirective.validateInputLength(control, 2, 5, 'testing error');
       expect(errors.minMaxError).toBe('testing error');
     });
   });

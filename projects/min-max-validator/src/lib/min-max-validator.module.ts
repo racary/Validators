@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
-import { MinMaxValidator } from './min-max-validator.service';
+import { MinMaxValidatorDirective } from './min-max-validator.directive';
 
 @NgModule({
-  declarations: [MinMaxValidator],
+  declarations: [MinMaxValidatorDirective],
   imports: [],
-  exports: [MinMaxValidator]
+  exports: [MinMaxValidatorDirective]
 })
 export class MinMaxValidatorModule { }
