@@ -7,7 +7,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "packager": "ng-packagr -p ./projects/min-max-validator/ng-package.json"
+    "copy-readme": "cp ReadMe.md dist",
+    "packager": "ng-packagr -p ./projects/min-max-validator/ng-package.json && npm run copy-readme"
   },
   "private": true,
   "dependencies": {

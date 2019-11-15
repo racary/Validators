@@ -1,11 +1,17 @@
 # CustomValidator
-The purpose of this project is to create a custom Min/Max length form validator for angular template forms. The validator accepts two optional input parameters.
-  1. libMinMaxValidator to register validator
-  2. [msg] - custom error message to display
-  3. minValue - minimum value that the input field can be
-  4. maxValue - max value that the input field can be
+The purpose of this project is to create a custom Min/Max length form validator for angular template forms. The validator accepts three input parameters:
+  1. [msg] - custom error message to display
+  2. [minValue] - minimum value that the input field can be
+  3. [maxValue] - max value that the input field can be
+
+  msg and minValue are optional. In order to work properly at least maxValue must be passed in.
+
+## To install
+  1. run `npm install min-max-validator` in your project directory
+  2. put libMinMaxValidator to register validator in your html input field
 
 ## To use library as a local package
+### clone from git and do the following:
 1. Run `npm packager` to create package in the `dist/` folder
 2. CD into the `dist/` directory
 3. Run `npm pack` to create the `min-max-validator-0.0.1.tgz` file
